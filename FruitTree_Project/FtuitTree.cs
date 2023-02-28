@@ -3,7 +3,7 @@
 
 namespace FruitTree_Project
 {
-    class FtuitTree
+    class FruitTree
     {
     }
 }
