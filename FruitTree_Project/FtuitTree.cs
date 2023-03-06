@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.IO;
 
 namespace FruitTree_Project
 {
@@ -12,6 +12,9 @@ namespace FruitTree_Project
         private uint age_;
         private double height_;
         private double yield_;
+
+        public double Height { get { return height_; } }
+        public double Yield { get { return yield_; } }
 
         public FruitTree(string name = "", uint age = 0, double height = 0.0, double yield = 0.0)
         {
@@ -54,6 +57,15 @@ namespace FruitTree_Project
             {
                 return left.height_ > right.height_;
             }
+        }
+
+        public override bool Equals(object tree)
+        {
+            if (tree != null && tree.GetType() == typeof(FruitTree))
+            {
+                return (this.yield_ == ((FruitTree)tree).Yield) && this.height_ == ((FruitTree)tree).Height;
+            }
+            return false;
         }
 
         public static bool operator != (FruitTree left, FruitTree right)
@@ -105,6 +117,46 @@ namespace FruitTree_Project
         public double GetProductivity()
         {
             return yield_;
+        }
+
+        public void ReadFromConsole(FruitTree myClass)
+        {
+            Console.Write("Enter name of tree: ");
+            string inputName = Console.ReadLine();
+            myClass.name_ = inputName;
+            Console.Write("Enter age of tree: ");
+            string inputAge = Console.ReadLine();
+            uint age;
+            Console.Write("Enter height of tree: ");
+            string inputHeight = Console.ReadLine();
+            double height;
+            Console.Write("Enter yield of tree: ");
+            string inputYield = Console.ReadLine();
+            double yield;
+            if (uint.TryParse(inputAge, out age))
+            {
+                myClass.age_ = age;
+            }
+            else
+            {
+                throw new InvalidCastException("Input is not a valid integer.");
+            }
+            if (double.TryParse(inputHeight, out height))
+            {
+                myClass.height_ = height;
+            }
+            else
+            {
+                throw new InvalidCastException("Input is not a valid double.");
+            }
+            if (double.TryParse(inputYield, out yield))
+            {
+                myClass.yield_ = yield;
+            }
+            else
+            {
+                throw new InvalidCastException("Input is not a valid double.");
+            }
         }
     }
 }

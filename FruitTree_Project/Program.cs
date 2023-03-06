@@ -29,6 +29,17 @@ namespace FruitTree_Project
             Console.WriteLine(a + b);
             Console.WriteLine(a == b);
             Console.WriteLine(a != b);
+            FruitTree c = new FruitTree("Orange", 2, 4.0, 0.0);
+            FruitTree d = new FruitTree("Coconut", 3, 4.0, 0.0);
+            FruitTree[] fruitTreeArray = { a, b, c, d };
+            foreach(FruitTree fruitTree in fruitTreeArray)
+            {
+                Console.WriteLine(fruitTree);
+            }
+            Console.WriteLine(a.Equals(b));
+            FruitTree e = new FruitTree();
+            e.ReadFromConsole(e);
+            Console.WriteLine(e);
             Console.ReadLine();
         }
     }
