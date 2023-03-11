@@ -115,6 +115,10 @@ namespace FruitTree_Project
             } 
             else
             {
+                if (yield_ == 0)
+                {
+                    yield_ = 1;
+                }
                 for (uint k = age_; k < current; ++k)
                 {
                     yield_ += yield_ / 1.5;

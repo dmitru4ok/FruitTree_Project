@@ -16,7 +16,7 @@ namespace FruitTree_Project
         {
             get
             {
-                return (freezing)? 0.8 * base.Yield: base.Yield;
+                return (freezing) ? 0.2 * base.Yield: base.Yield;
             }
         }
 

@@ -44,9 +44,9 @@ namespace FruitTree_Project
             //}
             
             //Console.WriteLine(a.Equals(b));
-            AppleTree FirstAppleTree = new AppleTree("red", 5, 7, 6.0);
+            AppleTree FirstAppleTree = new AppleTree("red", 4, 7, 6.0);
             AppleTree SecondAppleTree = new AppleTree("green", 4, 4.5, 2.0);
-            AppleTree ThirdAppleTree = new AppleTree("yellow", 4, 1.5, 0.0);
+            AppleTree ThirdAppleTree = new AppleTree("yellow", 3, 1.5, 0.0);
 
             Apricot FirstApricotTree = new Apricot(5, 6, 9.0);
             Apricot SecondApricotTree = new Apricot(5, 6.5, 8.5);
@@ -68,7 +68,7 @@ namespace FruitTree_Project
 
             List<FruitTree> fruitTree = new List<FruitTree>()
             {
-                FirstAppleTree, SecondAppleTree, ThirdAppleTree, ThirdAppleTree, FirstApricotTree, SecondApricotTree, ThirdApricotTree
+                FirstAppleTree, SecondAppleTree, ThirdAppleTree, FirstApricotTree, SecondApricotTree, ThirdApricotTree
             };
 
             foreach (FruitTree tree in fruitTree)
@@ -80,6 +80,12 @@ namespace FruitTree_Project
             Console.WriteLine(TheYieldiestTree(fruitTree));
             Console.WriteLine(AreAllTreesFruitful(fruitTree));
             AddFewYearsToList(fruitTree, 1);
+            Console.WriteLine();
+            foreach (FruitTree tree in fruitTree)
+            {
+                Console.WriteLine(tree);
+            }
+            AddFewYearsToList(fruitTree, 2);
             Console.WriteLine();
             foreach (FruitTree tree in fruitTree)
             {
@@ -118,8 +124,32 @@ namespace FruitTree_Project
         {
             foreach (FruitTree tree in list)
             {
-                tree.AddYears(age);
+                if (tree is Apricot)
+                {
+                    ((Apricot)tree).AddYears(true, age);
+                }
+                else
+                {
+                    tree.AddYears(age);
+                }
             }
         }
+
+        //static FruitTree ThreeMostFruitfulTrees(List<FruitTree> list)
+        //{
+        //    List<FruitTree> newList = new List<FruitTree>();
+        //    list.Sort((a, b) => b.Yield.CompareTo(a.Yield));
+        //    while(newList.Count != 3)
+        //    {
+        //        foreach (FruitTree tree in list)
+        //        {
+        //            list.Take(1);
+        //        }
+        //    }
+        //    foreach (FruitTree tree in newList)
+        //    {
+        //        yield return tree;
+        //    } 
+        //}
     }
 }
