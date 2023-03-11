@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FruitTree_Project
 {
@@ -32,31 +33,93 @@ namespace FruitTree_Project
             //Console.WriteLine(e);
             //Console.WriteLine(a != b);
 
-
-
             FruitTree a = new FruitTree("Apple", 3, 4.5, 0.0);
-            FruitTree b = new FruitTree("Apple", 1, 4.5, 0.0);
+            FruitTree b = new FruitTree("Apple", 5, 4.5, 0.0);
             FruitTree c = new FruitTree("Orange", 2, 4.0, 0.0);
             FruitTree d = new FruitTree("Coconut", 3, 4.0, 0.0);
             FruitTree[] fruitTreeArray = { a, b, c, d };
-            foreach(FruitTree fruitTree in fruitTreeArray)
-            {
-                Console.WriteLine(fruitTree);
-            }
+            //foreach(FruitTree fruitTree in fruitTreeArray)
+            //{
+            //    Console.WriteLine(fruitTree);
+            //}
+            
             //Console.WriteLine(a.Equals(b));
-            FruitTree A = new AppleTree("red", 3, 4.5, 0.0);
-            Console.WriteLine(A);
-            A.AddYears(1);
-            Console.WriteLine(A);
-         
-            Console.WriteLine(A);
-            Console.WriteLine(A.Yield);
-            A.AddYears(1);
-            Console.WriteLine(A.Yield);
-            Console.WriteLine(A);
-            FruitTree A = new Apricot(3, 4.5, 0.0);
+            AppleTree FirstAppleTree = new AppleTree("red", 5, 7, 6.0);
+            AppleTree SecondAppleTree = new AppleTree("green", 4, 4.5, 2.0);
+            AppleTree ThirdAppleTree = new AppleTree("yellow", 4, 1.5, 0.0);
 
+            Apricot FirstApricotTree = new Apricot(5, 6, 9.0);
+            Apricot SecondApricotTree = new Apricot(5, 6.5, 8.5);
+            Apricot ThirdApricotTree = new Apricot(5, 0.5, 0.0);
+
+            //Console.WriteLine(A);
+            //A.AddYears(1);
+            //Console.WriteLine(A);
+
+            //Console.WriteLine(A);
+            //Console.WriteLine(A.Yield);
+            //A.AddYears(1);
+            //Console.WriteLine(A.Yield);
+            //Console.WriteLine(A);
+
+            //Console.WriteLine(B);
+            //B.AddYears(true, 1);
+            //Console.WriteLine(B);
+
+            List<FruitTree> fruitTree = new List<FruitTree>()
+            {
+                FirstAppleTree, SecondAppleTree, ThirdAppleTree, ThirdAppleTree, FirstApricotTree, SecondApricotTree, ThirdApricotTree
+            };
+
+            foreach (FruitTree tree in fruitTree)
+            {
+                Console.WriteLine(tree);
+            }
+            
+            Console.WriteLine(TheHighestTree(fruitTree));
+            Console.WriteLine(TheYieldiestTree(fruitTree));
+            Console.WriteLine(AreAllTreesFruitful(fruitTree));
+            AddFewYearsToList(fruitTree, 1);
+            Console.WriteLine();
+            foreach (FruitTree tree in fruitTree)
+            {
+                Console.WriteLine(tree);
+            }
             Console.ReadLine();
+        }
+        
+        static FruitTree TheHighestTree(List<FruitTree> list)
+        {
+            return list.OrderByDescending( x => x.Height).First();
+        }
+
+        static FruitTree TheYieldiestTree(List<FruitTree> list)
+        {
+            return list.OrderByDescending(x => x.Yield).First();
+        }
+
+        static string AreAllTreesFruitful(List<FruitTree> list)
+        {
+            uint counter = 0;
+            foreach (FruitTree tree in list)
+            {
+                if (tree.Age >= 4)
+                {
+                    counter++;
+                }
+            }
+            if (counter == list.Count)
+            {
+                return "All trees are fruitful!";
+            }
+            return "Not all trees are fruitful!";
+        }
+        static void AddFewYearsToList(List<FruitTree> list, uint age)
+        {
+            foreach (FruitTree tree in list)
+            {
+                tree.AddYears(age);
+            }
         }
     }
 }

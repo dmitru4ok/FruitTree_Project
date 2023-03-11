@@ -39,13 +39,13 @@ namespace FruitTree_Project
 
         public static bool operator <(FruitTree left, FruitTree right)
         {
-            if (left.yield_ != right.yield_)
+            if (left.Yield != right.Yield)
             {
-                return left.yield_ < right.yield_;
+                return left.Yield < right.Yield;
             }
             else
             {
-                return left.height_ < right.height_;
+                return left.Height < right.Height;
             }
         }
 
@@ -57,7 +57,7 @@ namespace FruitTree_Project
             }
             else
             {
-                return left.height_ > right.height_;
+                return left.Height > right.Height;
             }
         }
 

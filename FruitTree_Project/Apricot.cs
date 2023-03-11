@@ -26,5 +26,10 @@ namespace FruitTree_Project
             freezing = ifFreezed;
         }
 
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
     }
 }
