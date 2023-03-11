@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace FruitTree_Project
 {
-    class FruitTree
+    public class FruitTree
     {
         private const uint MaxAge = 30;
         private const uint ProsperityAge = 4;
@@ -13,7 +14,9 @@ namespace FruitTree_Project
         private double yield_;
 
         public double Height { get { return height_; } }
-        public double Yield { get { return yield_; } }
+        public virtual double Yield { get { return yield_; } }
+
+        public uint Age { get { return age_; } }
 
         public FruitTree(string name = "", uint age = 0, double height = 0.0, double yield = 0.0)
         {
@@ -31,7 +34,7 @@ namespace FruitTree_Project
 
         public override string ToString()
         {
-            return $"{name_} of age {age_} and height {height_}. Gives {yield_} kg of fruit per year";
+            return $"{name_} of age {Age} and height {Height}. Gives {Yield} kg of fruit this year";
         }
 
         public static bool operator <(FruitTree left, FruitTree right)
@@ -60,21 +63,43 @@ namespace FruitTree_Project
 
         public override bool Equals(object tree)
         {
-            if (tree != null && tree.GetType() == typeof(FruitTree))
+            if (tree is FruitTree myObj)
             {
-                return (this.yield_ == ((FruitTree)tree).Yield) && this.height_ == ((FruitTree)tree).Height;
+                return Yield == myObj.Yield && Height == myObj.Height && Age == myObj.Age;
             }
             return false;
         }
 
-        public static bool operator != (FruitTree left, FruitTree right)
+        public override int GetHashCode()
         {
-            return (left.yield_ != right.yield_) ? true : left.height_ != right.height_;
+            return ToString().GetHashCode();
         }
 
-        public static bool operator ==(FruitTree left, FruitTree right)
+
+        public static bool operator != (FruitTree left, object right)
         {
-            return (left.yield_ == right.yield_) ? left.height_ == right.height_ : false;
+            if (left is null && right is null)
+            {
+                return false;
+            }
+            else if (!(left is null))
+            {
+                return !left.Equals(right);
+            }
+            return true;
+        }
+
+        public static bool operator ==(FruitTree left, object right)
+        {
+            if (left is null && right is null)
+            {
+                return true;
+            }
+            else if (!(left is null))
+            {
+                return left.Equals(right);
+            }
+            return false;
         }
 
         private void UpdateCharacteristics(uint current)
@@ -101,10 +126,10 @@ namespace FruitTree_Project
 
         public static double operator +(FruitTree left, FruitTree right)
         {
-            return left.yield_ + right.yield_;
+            return left.Yield + right.Yield;
         }
 
-        public void AddYears(uint param = 1)
+        public virtual void AddYears(uint param = 1)
         {
             if (param != 0 && param + age_ < MaxAge)
             {
@@ -113,10 +138,6 @@ namespace FruitTree_Project
             }
         }
 
-        public double GetProductivity()
-        {
-            return yield_;
-        }
 
         public void ReadFromConsole(FruitTree myClass)
         {
