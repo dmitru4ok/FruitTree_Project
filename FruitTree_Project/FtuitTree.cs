@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace FruitTree_Project
 {
-    public class FruitTree
+    public class FruitTree : IComparable
     {
         private const uint MaxAge = 30;
         private const uint ProsperityAge = 4;
@@ -181,6 +181,11 @@ namespace FruitTree_Project
             {
                 throw new InvalidCastException("Input is not a valid double.");
             }
+        }
+
+        public int CompareTo(object obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -91,6 +91,13 @@ namespace FruitTree_Project
             {
                 Console.WriteLine(tree);
             }
+
+            Console.WriteLine();
+            ThreeMostFruitfulTrees(fruitTree);
+            foreach (FruitTree tree in fruitTree)
+            {
+                Console.WriteLine(tree);
+            }
             Console.ReadLine();
         }
         
@@ -151,5 +158,12 @@ namespace FruitTree_Project
         //        yield return tree;
         //    } 
         //}
+        static List<FruitTree> ThreeMostFruitfulTrees(List<FruitTree> list)
+        {
+            list.OrderByDescending(x => x.Yield);
+            List<FruitTree> newList = new List<FruitTree>() { list[0], list[1], list[2]};
+
+            return newList;
+        }
     }
 }
