@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics;
 
 namespace FruitTree_Project
 {
-    public class FruitTree : IComparable
+    public class FruitTree : IComparable, IComparer
     {
         private const uint MaxAge = 30;
         private const uint ProsperityAge = 4;
@@ -51,9 +52,9 @@ namespace FruitTree_Project
 
         public static bool operator >(FruitTree left, FruitTree right)
         {
-            if (left.yield_ != right.yield_)
+            if (left.Yield != right.Yield)
             {
-                return left.yield_ > right.yield_;
+                return left.Yield > right.Yield;
             }
             else
             {
@@ -184,6 +185,11 @@ namespace FruitTree_Project
         }
 
         public int CompareTo(object obj)
+        {
+            return this.Height.CompareTo((obj as FruitTree).Height);
+        }
+
+        public int Compare(object x, object y)
         {
             throw new NotImplementedException();
         }

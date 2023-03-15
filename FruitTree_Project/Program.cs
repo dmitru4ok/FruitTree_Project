@@ -75,9 +75,11 @@ namespace FruitTree_Project
             {
                 Console.WriteLine(tree);
             }
-            
+            Console.WriteLine();
             Console.WriteLine(TheHighestTree(fruitTree));
+            Console.WriteLine();
             Console.WriteLine(TheYieldiestTree(fruitTree));
+            Console.WriteLine();
             Console.WriteLine(AreAllTreesFruitful(fruitTree));
             AddFewYearsToList(fruitTree, 1);
             Console.WriteLine();
@@ -93,8 +95,7 @@ namespace FruitTree_Project
             }
 
             Console.WriteLine();
-            ThreeMostFruitfulTrees(fruitTree);
-            foreach (FruitTree tree in fruitTree)
+            foreach (FruitTree tree in ThreeMostFruitfulTrees(fruitTree))
             {
                 Console.WriteLine(tree);
             }
@@ -103,12 +104,33 @@ namespace FruitTree_Project
         
         static FruitTree TheHighestTree(List<FruitTree> list)
         {
-            return list.OrderByDescending( x => x.Height).First();
+            FruitTree max = new FruitTree();
+            for (int i = 0; i < list.Count; i++)
+            {
+                int comp = list[i].CompareTo(max);
+                switch (comp) {
+                    case 0:
+                        max = list[i];
+                        break;
+                    case 1:
+                        max = list[i];
+                        break;
+                }
+            }
+            return max;
         }
 
         static FruitTree TheYieldiestTree(List<FruitTree> list)
         {
-            return list.OrderByDescending(x => x.Yield).First();
+            FruitTree max = new FruitTree();
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] > max)
+                {
+                    max = list[i];
+                }
+            }
+            return max;
         }
 
         static string AreAllTreesFruitful(List<FruitTree> list)
@@ -142,25 +164,20 @@ namespace FruitTree_Project
             }
         }
 
-        //static FruitTree ThreeMostFruitfulTrees(List<FruitTree> list)
-        //{
-        //    List<FruitTree> newList = new List<FruitTree>();
-        //    list.Sort((a, b) => b.Yield.CompareTo(a.Yield));
-        //    while(newList.Count != 3)
-        //    {
-        //        foreach (FruitTree tree in list)
-        //        {
-        //            list.Take(1);
-        //        }
-        //    }
-        //    foreach (FruitTree tree in newList)
-        //    {
-        //        yield return tree;
-        //    } 
-        //}
         static List<FruitTree> ThreeMostFruitfulTrees(List<FruitTree> list)
         {
-            list.OrderByDescending(x => x.Yield);
+            for(int i = 0; i < list.Count; i++)
+            {
+                for(int j = i + 1; j < list.Count; j++)
+                {
+                    if (list[i] < list[j])
+                    {
+                        FruitTree temp = list[i];
+                        list[i] = list[j];
+                        list[j] = temp;
+                    }
+                }
+            }
             List<FruitTree> newList = new List<FruitTree>() { list[0], list[1], list[2]};
 
             return newList;
