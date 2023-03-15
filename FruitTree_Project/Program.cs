@@ -99,6 +99,12 @@ namespace FruitTree_Project
             {
                 Console.WriteLine(tree);
             }
+
+            Console.WriteLine();
+            foreach (FruitTree tree in TreesWithSomeHeight(fruitTree, 5.0))
+            {
+                Console.WriteLine(tree);
+            }
             Console.ReadLine();
         }
         
@@ -179,6 +185,20 @@ namespace FruitTree_Project
                 }
             }
             List<FruitTree> newList = new List<FruitTree>() { list[0], list[1], list[2]};
+
+            return newList;
+        }
+
+        static List<FruitTree> TreesWithSomeHeight(List<FruitTree> list, double height)
+        {
+            List<FruitTree> newList = new List<FruitTree>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].Height <= height)
+                {
+                    newList.Add(list[i]);
+                }
+            }
 
             return newList;
         }
