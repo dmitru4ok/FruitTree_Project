@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Diagnostics;
+using System.Globalization;
 
 namespace FruitTree_Project
 {
-    public class FruitTree : IComparable, IComparer
+    public class FruitTree : IComparable, IComparer, IFormattable
     {
         private const uint MaxAge = 30;
         private const uint ProsperityAge = 4;
@@ -36,6 +36,39 @@ namespace FruitTree_Project
         public override string ToString()
         {
             return $"{name_} of age {Age} and height {Height}. Gives {Yield} kg of fruit this year";
+        }
+
+        public string ToString(string format = "D")
+        {
+            return this.ToString(format, CultureInfo.CurrentCulture);
+        }
+
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            if (format is null) return this.ToString("D", formatProvider);
+            string ageStr = age_.ToString(null, formatProvider);
+            string yieldStr = yield_.ToString(null, formatProvider);
+            string heightStr = height_.ToString(null, formatProvider);
+            switch (format)
+            {
+                case "D": // D stands for DEFAULT
+                    return $"{name_} of age {ageStr} and height {heightStr}. Gives {yieldStr} kg of fruit this year";
+                case "T": // T stands for TABULATED
+                    string head = "Name:".PadRight(name_.Length) + "|Age:" +
+                        "|Productivity:".PadRight(yieldStr.Length) + "|Height:".PadRight(heightStr.Length);
+                    string bottom = name_.ToString().PadRight(5) + $"|{ageStr}".PadRight(5) + $"|{yieldStr}".PadRight(14) + $"|{heightStr}".PadRight(8);
+                    return head + '\n' + bottom;
+                case "S": // S stands for SHORT
+                    return $"N:{name_}| A:{ageStr}| P:{yieldStr}| H:{heightStr}";
+                case "P": // P stands for PRETTY
+                    //?int maxLen = Math.Max(Math.Max(name_.Length, ageStr.Length), Math.Max(yieldStr.Length, heightStr.Length));
+                    int maxLen = 15;
+                    return name_.ToString().PadRight(maxLen) + $"|{ageStr}".PadRight(maxLen) + $"|{yieldStr}".PadRight(maxLen)
+                        + $"|{heightStr}".PadRight(maxLen);
+                default:
+                    throw new FormatException();
+            }
         }
 
         public static bool operator <(FruitTree left, FruitTree right)
@@ -186,7 +219,11 @@ namespace FruitTree_Project
 
         public int CompareTo(object obj)
         {
-            return this.Height.CompareTo((obj as FruitTree).Height);
+            if (obj is FruitTree conv)
+            {
+                return this.Height.CompareTo(conv.Height);
+            }
+            throw new InvalidCastException();
         }
 
         public int Compare(object x, object y)

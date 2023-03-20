@@ -103,7 +103,7 @@ namespace FruitTree_Project
             Console.WriteLine();
             foreach (FruitTree tree in TreesWithSomeHeight(fruitTree, 5.0))
             {
-                Console.WriteLine(tree);
+                Console.WriteLine(tree.ToString("S"));
             }
             Console.ReadLine();
         }
