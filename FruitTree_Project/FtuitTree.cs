@@ -35,7 +35,7 @@ namespace FruitTree_Project
 
         public override string ToString()
         {
-            return $"{name_} of age {Age} and height {Height}. Gives {Yield} kg of fruit this year";
+            return $"{name_} of age {Age} and height {Height}. Given {Yield} kg of fruit this year";
         }
 
         public string ToString(string format = "D")
@@ -53,7 +53,7 @@ namespace FruitTree_Project
             switch (format)
             {
                 case "D": // D stands for DEFAULT
-                    return $"{name_} of age {ageStr} and height {heightStr}. Gives {yieldStr} kg of fruit this year";
+                    return $"{name_} of age {Age} and height {Height}. Given {Yield} kg of fruit this year";
                 case "T": // T stands for TABULATED
                     string head = "Name:".PadRight(name_.Length) + "|Age:" +
                         "|Productivity:".PadRight(yieldStr.Length) + "|Height:".PadRight(heightStr.Length);
