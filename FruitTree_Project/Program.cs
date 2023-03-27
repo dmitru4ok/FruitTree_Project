@@ -42,7 +42,7 @@ namespace FruitTree_Project
             //{
             //    Console.WriteLine(fruitTree);
             //}
-            
+
             //Console.WriteLine(a.Equals(b));
             AppleTree FirstAppleTree = new AppleTree("red", 4, 7, 6.0);
             AppleTree SecondAppleTree = new AppleTree("green", 4, 4.5, 2.0);
@@ -70,15 +70,14 @@ namespace FruitTree_Project
             {
                 FirstAppleTree, SecondAppleTree, ThirdAppleTree, FirstApricotTree, SecondApricotTree, ThirdApricotTree
             };
+
             Console.WriteLine("FruitTree list: ");
-            foreach (FruitTree tree in fruitTree)
-            {
-                Console.WriteLine(tree);
-            }
+            Console.WriteLine();
+            PrintAllTrees(fruitTree);
             Console.WriteLine("\nThe highest tree: ");
             Console.WriteLine(TheHighestTree(fruitTree));
-            
 
+            Console.WriteLine();
             Console.WriteLine("\nThe yieldest tree: ");
             Console.WriteLine(TheYieldiestTree(fruitTree));
             Console.WriteLine();
@@ -86,38 +85,39 @@ namespace FruitTree_Project
             Console.WriteLine(AreAllTreesFruitful(fruitTree));
             Console.WriteLine();
 
-
+            Console.WriteLine();
             Console.WriteLine("Added one year: ");
             AddFewYearsToList(fruitTree, 1);
-            foreach (FruitTree tree in fruitTree)
-            {
-                Console.WriteLine(tree);
-            }
+            Console.WriteLine();
+            PrintAllTrees(fruitTree);
 
+            Console.WriteLine();
             Console.WriteLine("Added two years: ");
             AddFewYearsToList(fruitTree, 2);
             Console.WriteLine();
-            foreach (FruitTree tree in fruitTree)
-            {
-                Console.WriteLine(tree);
-            }
+            PrintAllTrees(fruitTree);
 
+            Console.WriteLine();
             Console.WriteLine("Most productive trees: ");
             Console.WriteLine();
-            foreach (FruitTree tree in NMostFruitfulTrees(fruitTree, 3))
-            {
-                Console.WriteLine(tree);
-            }
+            PrintAllTrees(NMostFruitfulTrees(fruitTree, 3));
             Console.WriteLine();
 
             Console.WriteLine("Trees with certain height <= 6.9: ");
-            foreach (FruitTree tree in TreesWithSomeHeight(fruitTree, 6.9))
-            {
-                Console.WriteLine(tree.ToString("S"));
-            }
+            PrintAllTrees(TreesWithSomeHeight(fruitTree, 6.9));
+
+
             Console.ReadLine();
         }
-        
+
+        static void PrintAllTrees(List<FruitTree> list)
+        {
+            foreach (FruitTree tree in list)
+            {
+                Console.WriteLine(tree);
+            }
+        }
+
         static FruitTree TheHighestTree(List<FruitTree> list)
         {
             FruitTree max = new FruitTree();
