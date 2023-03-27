@@ -10,15 +10,24 @@ namespace FruitTree_Project
         private const uint ProsperityAge = 4;
 
         private string name_;
-        private uint age_;
-        private double height_;
-        private double yield_;
+        protected uint age_;
+        protected double height_;
+        protected double yield_;
 
         public event EventHandler YieldReached;
 
         public double Height { get { return height_; } }
-        public virtual double Yield { get { return yield_; } }
-        public uint Age { get { return age_; } }
+        public virtual double Yield { get { return yield_; }  set { yield_ = value; } }
+        public virtual uint Age { 
+            get 
+            { 
+                return age_; 
+            } 
+            set
+            {
+                age_ = value;
+            }
+        }
         public bool IsFruitful { get { return age_ >= ProsperityAge; } }
 
         public FruitTree(string name = "", uint age = 0, double height = 0.0, double yield = 0.0)
