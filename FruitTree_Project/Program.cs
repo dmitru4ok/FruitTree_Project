@@ -104,13 +104,13 @@ namespace FruitTree_Project
 
             Console.WriteLine("Most productive trees: ");
             Console.WriteLine();
-            foreach (FruitTree tree in ThreeMostFruitfulTrees(fruitTree))
+            foreach (FruitTree tree in NMostFruitfulTrees(fruitTree, 3))
             {
                 Console.WriteLine(tree);
             }
             Console.WriteLine();
 
-            Console.WriteLine("Trees with ceratin height = 6.9: ");
+            Console.WriteLine("Trees with certain height <= 6.9: ");
             foreach (FruitTree tree in TreesWithSomeHeight(fruitTree, 6.9))
             {
                 Console.WriteLine(tree.ToString("S"));
@@ -134,7 +134,7 @@ namespace FruitTree_Project
             FruitTree max = new FruitTree();
             for (int i = 0; i < list.Count; i++)
             {
-                if (list[i] > max)
+                if (list[i].Yield > max.Yield)
                 {
                     max = list[i];
                 }
@@ -189,13 +189,13 @@ namespace FruitTree_Project
                 ToOperate[i] = ToOperate[MaxIndex];
                 ToOperate[MaxIndex] = temp;
             }
-            
-            return ToOperate[..n];
+            return ToOperate.Take(n).ToList();
+            //return ToOperate[..n]; // ідеальне рішення, треба перенести проект на .NET 6.0
         }
 
         static List<FruitTree> TreesWithSomeHeight(List<FruitTree> list, double height)
         {
-            return list.FindAll(x => x.Height == height);
+            return list.FindAll(x => x.Height <= height);
             //List<FruitTree> newList = new List<FruitTree>();
             //for (int i = 0; i < list.Count; i++)
             //{
