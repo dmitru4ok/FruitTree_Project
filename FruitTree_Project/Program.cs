@@ -70,23 +70,31 @@ namespace FruitTree_Project
             {
                 FirstAppleTree, SecondAppleTree, ThirdAppleTree, FirstApricotTree, SecondApricotTree, ThirdApricotTree
             };
-
+            Console.WriteLine("FruitTree list: ");
             foreach (FruitTree tree in fruitTree)
             {
                 Console.WriteLine(tree);
             }
-            Console.WriteLine();
+            Console.WriteLine("\nThe highest tree: ");
             Console.WriteLine(TheHighestTree(fruitTree));
-            Console.WriteLine();
+            
+
+            Console.WriteLine("\nThe yieldest tree: ");
             Console.WriteLine(TheYieldiestTree(fruitTree));
             Console.WriteLine();
+
             Console.WriteLine(AreAllTreesFruitful(fruitTree));
-            AddFewYearsToList(fruitTree, 1);
             Console.WriteLine();
+
+
+            Console.WriteLine("Added one year: ");
+            AddFewYearsToList(fruitTree, 1);
             foreach (FruitTree tree in fruitTree)
             {
                 Console.WriteLine(tree);
             }
+
+            Console.WriteLine("Added two years: ");
             AddFewYearsToList(fruitTree, 2);
             Console.WriteLine();
             foreach (FruitTree tree in fruitTree)
@@ -94,14 +102,16 @@ namespace FruitTree_Project
                 Console.WriteLine(tree);
             }
 
+            Console.WriteLine("Most productive trees: ");
             Console.WriteLine();
             foreach (FruitTree tree in ThreeMostFruitfulTrees(fruitTree))
             {
                 Console.WriteLine(tree);
             }
-
             Console.WriteLine();
-            foreach (FruitTree tree in TreesWithSomeHeight(fruitTree, 5.0))
+
+            Console.WriteLine("Trees with ceratin height = 6.9: ");
+            foreach (FruitTree tree in TreesWithSomeHeight(fruitTree, 6.9))
             {
                 Console.WriteLine(tree.ToString("S"));
             }
@@ -113,15 +123,8 @@ namespace FruitTree_Project
             FruitTree max = new FruitTree();
             for (int i = 0; i < list.Count; i++)
             {
-                int comp = list[i].CompareTo(max);
-                switch (comp) {
-                    case 0:
-                        max = list[i];
-                        break;
-                    case 1:
-                        max = list[i];
-                        break;
-                }
+                if (list[i].Height > max.Height)
+                    max = list[i];
             }
             return max;
         }
@@ -141,27 +144,27 @@ namespace FruitTree_Project
 
         static string AreAllTreesFruitful(List<FruitTree> list)
         {
-            uint counter = 0;
-            foreach (FruitTree tree in list)
+            if (list.TrueForAll(tree => tree.IsFruitful)) // модерний варіант
             {
-                if (tree.Age >= 4)
-                {
-                    counter++;
-                }
-            }
-            if (counter == list.Count)
-            {
-                return "All trees are fruitful!";
+                return "All trees are fruitful";
             }
             return "Not all trees are fruitful!";
+            //foreach (FruitTree tree in list)
+            //{
+            //    if (!tree.IsFruitful)
+            //    {
+            //        return "Not all trees are fruitful!";
+            //    }
+            //}
+            //return "All trees are fruitful!";
         }
         static void AddFewYearsToList(List<FruitTree> list, uint age)
         {
             foreach (FruitTree tree in list)
             {
-                if (tree is Apricot)
+                if (tree is Apricot apricot)
                 {
-                    ((Apricot)tree).AddYears(true, age);
+                    apricot.AddYears(true, age);
                 }
                 else
                 {
@@ -170,37 +173,39 @@ namespace FruitTree_Project
             }
         }
 
-        static List<FruitTree> ThreeMostFruitfulTrees(List<FruitTree> list)
+        static List<FruitTree> NMostFruitfulTrees(List<FruitTree> list, int n)
         {
-            for(int i = 0; i < list.Count; i++)
+            FruitTree[] ToOperate = new FruitTree[list.Count];
+            list.CopyTo(ToOperate);
+            for (int i = 0; i < n; ++i)
             {
-                for(int j = i + 1; j < list.Count; j++)
+                int MaxIndex = i;
+                for (int j = i + 1; j < ToOperate.Length; ++j)
                 {
-                    if (list[i] < list[j])
-                    {
-                        FruitTree temp = list[i];
-                        list[i] = list[j];
-                        list[j] = temp;
-                    }
+                    if (ToOperate[j] > ToOperate[MaxIndex])
+                        MaxIndex = j;
                 }
+                FruitTree temp = ToOperate[i];
+                ToOperate[i] = ToOperate[MaxIndex];
+                ToOperate[MaxIndex] = temp;
             }
-            List<FruitTree> newList = new List<FruitTree>() { list[0], list[1], list[2]};
-
-            return newList;
+            
+            return ToOperate[..n];
         }
 
         static List<FruitTree> TreesWithSomeHeight(List<FruitTree> list, double height)
         {
-            List<FruitTree> newList = new List<FruitTree>();
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i].Height <= height)
-                {
-                    newList.Add(list[i]);
-                }
-            }
+            return list.FindAll(x => x.Height == height);
+            //List<FruitTree> newList = new List<FruitTree>();
+            //for (int i = 0; i < list.Count; i++)
+            //{
+            //    if (list[i].Height <= height)
+            //    {
+            //        newList.Add(list[i]);
+            //    }
+            //}
 
-            return newList;
+            //return newList;
         }
     }
 }

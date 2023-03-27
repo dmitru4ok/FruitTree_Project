@@ -16,8 +16,8 @@ namespace FruitTree_Project
 
         public double Height { get { return height_; } }
         public virtual double Yield { get { return yield_; } }
-
         public uint Age { get { return age_; } }
+        public bool IsFruitful { get { return age_ >= ProsperityAge; } }
 
         public FruitTree(string name = "", uint age = 0, double height = 0.0, double yield = 0.0)
         {
@@ -73,33 +73,19 @@ namespace FruitTree_Project
 
         public static bool operator <(FruitTree left, FruitTree right)
         {
-            if (left.Yield != right.Yield)
-            {
-                return left.Yield < right.Yield;
-            }
-            else
-            {
-                return left.Height < right.Height;
-            }
+            return left.CompareTo(right) == -1;
         }
 
-        public static bool operator >(FruitTree left, FruitTree right)
+        public static bool operator > (FruitTree left, FruitTree right)
         {
-            if (left.Yield != right.Yield)
-            {
-                return left.Yield > right.Yield;
-            }
-            else
-            {
-                return left.Height > right.Height;
-            }
+           return left.CompareTo(right) == 1;
         }
 
         public override bool Equals(object tree)
         {
             if (tree is FruitTree myObj)
             {
-                return Yield == myObj.Yield && Height == myObj.Height && Age == myObj.Age;
+                return CompareTo(myObj) == 0;
             }
             return false;
         }
@@ -145,7 +131,7 @@ namespace FruitTree_Project
                {
                     yield_ += yield_ / 1.5;
                     yield_ = Math.Round(yield_, 2);
-                }
+               }
             } 
             else
             {
@@ -221,7 +207,13 @@ namespace FruitTree_Project
         {
             if (obj is FruitTree conv)
             {
-                return this.Height.CompareTo(conv.Height);
+                if (Yield.CompareTo(conv.Yield) == 0)
+                {
+                    if (Height.CompareTo(conv.Height) == 0)
+                        return Age.CompareTo(conv.Age);
+                    return Height.CompareTo(conv.Height);
+                }
+                return Yield.CompareTo(conv.Yield);
             }
             throw new InvalidCastException();
         }
