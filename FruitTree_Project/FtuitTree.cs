@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace FruitTree_Project
 {
-    public class FruitTree : IComparable, IComparer, IFormattable
+    public class FruitTree : IComparable, IFormattable
     {
         private const uint MaxAge = 30;
         private const uint ProsperityAge = 4;
@@ -14,6 +14,8 @@ namespace FruitTree_Project
         private double height_;
         private double yield_;
 
+        public event EventHandler YieldReached;
+
         public double Height { get { return height_; } }
         public virtual double Yield { get { return yield_; } }
         public uint Age { get { return age_; } }
@@ -21,16 +23,19 @@ namespace FruitTree_Project
 
         public FruitTree(string name = "", uint age = 0, double height = 0.0, double yield = 0.0)
         {
+            YieldReached += TreeYieldReached;
             name_ = name;
             age_ = (age > 0 && age <= MaxAge) ? age : 0;
             height_ = (height > 0.0 && height <= 25.0) ? height : 0.0;
             if (age_ >= ProsperityAge && (yield > 0))
             {
                 yield_ = yield;
-            } else
+            }
+            else
             {
                 yield_ = 0.0;
             }
+            
         }
 
         public override string ToString()
@@ -76,9 +81,9 @@ namespace FruitTree_Project
             return left.CompareTo(right) == -1;
         }
 
-        public static bool operator > (FruitTree left, FruitTree right)
+        public static bool operator >(FruitTree left, FruitTree right)
         {
-           return left.CompareTo(right) == 1;
+            return left.CompareTo(right) == 1;
         }
 
         public override bool Equals(object tree)
@@ -96,7 +101,7 @@ namespace FruitTree_Project
         }
 
 
-        public static bool operator != (FruitTree left, object right)
+        public static bool operator !=(FruitTree left, object right)
         {
             if (left is null && right is null)
             {
@@ -126,13 +131,13 @@ namespace FruitTree_Project
         {
             if (age_ < ProsperityAge && current >= ProsperityAge)
             {
-               yield_ = 1.0;
-               for(uint k = ProsperityAge; k <= current; ++k)
-               {
+                yield_ = 1.0;
+                for (uint k = ProsperityAge; k <= current; ++k)
+                {
                     yield_ += yield_ / 1.5;
                     yield_ = Math.Round(yield_, 2);
-               }
-            } 
+                }
+            }
             else
             {
                 if (yield_ == 0)
@@ -218,9 +223,14 @@ namespace FruitTree_Project
             throw new InvalidCastException();
         }
 
-        public int Compare(object x, object y)
+        protected virtual void OnYieldReached(EventArgs e)
         {
-            throw new NotImplementedException();
+            YieldReached?.Invoke(this, e);
+        }
+
+        protected virtual void TreeYieldReached(object sender, EventArgs e)
+        {
+            Console.WriteLine("Дерево досягло плодоносного віку!");
         }
     }
 }
