@@ -5,8 +5,6 @@ namespace FruitTree_Project
 {
     public class AppleTree : FruitTree
     {
-        //private uint age_;
-
         public string Color { get; }
 
         public override uint Age

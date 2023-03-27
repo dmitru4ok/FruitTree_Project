@@ -6,7 +6,6 @@ namespace FruitTree_Project
     public class Apricot : FruitTree
     {
         private bool freezing;
-        //private uint age_;
 
         public Apricot(uint age = 0, double height = 0.0, double yield = 0.0) : base("Apricot", age, height, yield)
         {
