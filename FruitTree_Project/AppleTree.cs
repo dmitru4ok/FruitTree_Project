@@ -7,16 +7,16 @@ namespace FruitTree_Project
     {
         public string Color { get; }
 
-        public override double Yield
+        public override uint Age
         {
             get
             {
-                double result = (Age % 2 == 0) ? base.Yield : 0;
+                double result = (age_ % 2 == 0) ? base.Yield : 0;
                 if (result > 0)
                 {
                     OnYieldReached(EventArgs.Empty);
                 }
-                return result;
+                return age_;
             }
         }
 
