@@ -38,10 +38,10 @@ namespace FruitTree_Project
             FruitTree c = new FruitTree("Orange", 2, 4.0, 0.0);
             FruitTree d = new FruitTree("Coconut", 3, 4.0, 0.0);
             FruitTree[] fruitTreeArray = { a, b, c, d };
-            //foreach(FruitTree fruitTree in fruitTreeArray)
-            //{
-            //    Console.WriteLine(fruitTree);
-            //}
+            foreach(FruitTree fruitTree1 in fruitTreeArray)
+            {
+                Console.WriteLine(fruitTree1);
+            }
 
             //Console.WriteLine(a.Equals(b));
             AppleTree FirstAppleTree = new AppleTree("red", 4, 7, 6.0);
