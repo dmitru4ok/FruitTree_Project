@@ -15,6 +15,7 @@ namespace FruitTree_Project
         protected double yield_;
 
         public event EventHandler YieldReached;
+        public event EventHandler NewProsperityTree;
 
         public double Height { get { return height_; } }
         public virtual double Yield { get { return yield_; }  set { yield_ = value; } }
@@ -27,6 +28,12 @@ namespace FruitTree_Project
             {
                 age_ = value;
             }
+        }
+
+        public string Name
+        {
+            get { return name_; }
+            set { name_ = value; }
         }
         public bool IsFruitful { get { return age_ >= ProsperityAge; } }
 
@@ -140,6 +147,7 @@ namespace FruitTree_Project
         {
             if (age_ < ProsperityAge && current >= ProsperityAge)
             {
+                OnNewProsperityTree(EventArgs.Empty);
                 yield_ = 1.0;
                 for (uint k = ProsperityAge; k <= current; ++k)
                 {
@@ -241,5 +249,13 @@ namespace FruitTree_Project
         {
             Console.WriteLine("Дерево досягло плодоносного віку!");
         }
+        protected virtual void OnNewProsperityTree(EventArgs e)
+        {
+            NewProsperityTree?.Invoke(this, e);
+        }
+        //protected virtual void TreeYieldReached(object sender, EventArgs e)
+        //{
+        //    Console.WriteLine("Дерево досягло плодоносного віку!");
+        //}
     }
 }

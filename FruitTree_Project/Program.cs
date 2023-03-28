@@ -51,6 +51,7 @@ namespace FruitTree_Project
             Apricot FirstApricotTree = new Apricot(5, 6, 9.0);
             Apricot SecondApricotTree = new Apricot(5, 6.5, 8.5);
             Apricot ThirdApricotTree = new Apricot(5, 0.5, 0.0);
+            Apricot FourthApricotTree = new Apricot(3, 0.5, 6.0);
 
             //Console.WriteLine(A);
             //A.AddYears(1);
@@ -68,7 +69,7 @@ namespace FruitTree_Project
 
             List<FruitTree> fruitTree = new List<FruitTree>()
             {
-                FirstAppleTree, SecondAppleTree, ThirdAppleTree, FirstApricotTree, SecondApricotTree, ThirdApricotTree
+                FirstAppleTree, SecondAppleTree, ThirdAppleTree, FirstApricotTree, SecondApricotTree, ThirdApricotTree, FourthApricotTree
             };
 
             Console.WriteLine("FruitTree list: ");
@@ -206,6 +207,12 @@ namespace FruitTree_Project
             //}
 
             //return newList;
+        }
+        static void SubscribeToTree(Gardener gardener, params FruitTree[] trees)
+        {
+            foreach (var tree in trees) {
+
+            }
         }
     }
 }
