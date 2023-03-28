@@ -106,11 +106,16 @@ namespace FruitTree_Project
 
             Console.WriteLine("Trees with certain height <= 6.9: ");
             PrintAllTrees(TreesWithSomeHeight(fruitTree, 6.9));
+            Console.WriteLine();
 
+            Gardener firstGardener = new Gardener("Alex");
+            SubscribeToTree(firstGardener, fruitTreeArray);
+            fruitTreeArray[0].AddYears(1);
+            fruitTreeArray[2].AddYears(4);
 
+            
             Console.ReadLine();
         }
-
         static void PrintAllTrees(List<FruitTree> list)
         {
             foreach (FruitTree tree in list)
@@ -210,8 +215,9 @@ namespace FruitTree_Project
         }
         static void SubscribeToTree(Gardener gardener, params FruitTree[] trees)
         {
-            foreach (var tree in trees) {
-
+            foreach (FruitTree tree in trees)
+            {
+                tree.NewProsperityTree += gardener.NewProsperityTreeGardener;
             }
         }
     }

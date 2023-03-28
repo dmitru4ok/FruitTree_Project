@@ -147,7 +147,6 @@ namespace FruitTree_Project
         {
             if (age_ < ProsperityAge && current >= ProsperityAge)
             {
-                OnNewProsperityTree(EventArgs.Empty);
                 yield_ = 1.0;
                 for (uint k = ProsperityAge; k <= current; ++k)
                 {
@@ -181,6 +180,11 @@ namespace FruitTree_Project
             {
                 UpdateCharacteristics(age_ + param);
                 age_ += param;
+                Console.WriteLine("You added {0} years to {1}", param, this.Name);
+                if (age_ >= 4)
+                {
+                    OnNewProsperityTree(EventArgs.Empty);
+                }
             }
         }
 
@@ -253,9 +257,5 @@ namespace FruitTree_Project
         {
             NewProsperityTree?.Invoke(this, e);
         }
-        //protected virtual void TreeYieldReached(object sender, EventArgs e)
-        //{
-        //    Console.WriteLine("Дерево досягло плодоносного віку!");
-        //}
     }
 }

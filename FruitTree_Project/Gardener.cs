@@ -15,7 +15,7 @@ namespace FruitTree_Project
             Name = name;
         }
 
-        public void NewProsperityTree(object sender, EventArgs e)
+        public void NewProsperityTreeGardener(object sender, EventArgs e)
         {
             FruitTree tree = sender as FruitTree;
             Console.WriteLine("Gardenerr {0}: tree ({1}) has {2} years reached prosperity age", Name, tree.Name, tree.Age);
