@@ -128,6 +128,13 @@ namespace FruitTree_Project
             Console.WriteLine();
             
             PrintAllTreesEnumerable(fruitTreeArray);
+            Console.WriteLine();
+            
+            FruitTreeCollection treeCollection = new FruitTreeCollection();
+            treeCollection.Add(SecondAppleTree);
+            treeCollection.Add(ThirdAppleTree);
+            treeCollection.Add(FirstApricotTree);
+            PrintAllTreesEnumerable(treeCollection);
             
             Console.ReadLine();
         }

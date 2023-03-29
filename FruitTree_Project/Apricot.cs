@@ -40,6 +40,5 @@ namespace FruitTree_Project
         {
             Console.WriteLine("Дерево Абрикос досягло плодоносного віку!");
         }
-
     }
 }
