@@ -110,18 +110,23 @@ namespace FruitTree_Project
             SubscribeToTree(firstGardener, fruitTreeArray);
             fruitTreeArray[0].AddYears(1);
             fruitTreeArray[2].AddYears(4);
+            Console.WriteLine();
             
             IEnumerator<FruitTree> enumerator = fruitTree.GetEnumerator();
 
-            Console.WriteLine(enumerator.MoveNext());
+            enumerator.MoveNext();
             FruitTree firstTree = enumerator.Current;
             Console.WriteLine($"First tree: {firstTree.Name}");
-            Console.WriteLine(enumerator.MoveNext());
+            enumerator.MoveNext();
             FruitTree secondTree = enumerator.Current;
             Console.WriteLine($"Second tree: {secondTree.Name}");
-            Console.WriteLine(enumerator.MoveNext());
+            enumerator.MoveNext();
             FruitTree thirdTree = enumerator.Current;
             Console.WriteLine($"Third tree: {thirdTree.Name}");
+            enumerator.MoveNext();
+            FruitTree fourthTree = enumerator.Current;
+            Console.WriteLine($"Fourth tree: {fourthTree.Name}");
+            Console.WriteLine();
             
             PrintAllTreesEnumerable(fruitTreeArray);
             
