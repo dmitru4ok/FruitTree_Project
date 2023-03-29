@@ -21,7 +21,9 @@ namespace FruitTree_Project
         public virtual double Yield { get { return yield_; }  set { yield_ = value; } }
         public virtual uint Age { 
             get 
-            { 
+            {   
+                if(age_ > ProsperityAge) 
+                { OnYieldReached(EventArgs.Empty); }
                 return age_; 
             } 
             set

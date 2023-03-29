@@ -33,7 +33,6 @@ namespace FruitTree_Project
             //e.ReadFromConsole(e);
             //Console.WriteLine(e);
             //Console.WriteLine(a != b);
-            
 
             //Console.WriteLine(a.Equals(b));
             AppleTree FirstAppleTree = new AppleTree("red", 4, 7, 6.0);
