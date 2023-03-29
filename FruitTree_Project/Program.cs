@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,16 +33,7 @@ namespace FruitTree_Project
             //e.ReadFromConsole(e);
             //Console.WriteLine(e);
             //Console.WriteLine(a != b);
-
-            FruitTree a = new FruitTree("Apple", 3, 4.5, 0.0);
-            FruitTree b = new FruitTree("Apple", 5, 4.5, 0.0);
-            FruitTree c = new FruitTree("Orange", 2, 4.0, 0.0);
-            FruitTree d = new FruitTree("Coconut", 3, 4.0, 0.0);
-            FruitTree[] fruitTreeArray = { a, b, c, d };
-            //foreach(FruitTree fruitTree in fruitTreeArray)
-            //{
-            //    Console.WriteLine(fruitTree);
-            //}
+            
 
             //Console.WriteLine(a.Equals(b));
             AppleTree FirstAppleTree = new AppleTree("red", 4, 7, 6.0);
@@ -107,12 +99,31 @@ namespace FruitTree_Project
             Console.WriteLine("Trees with certain height <= 6.9: ");
             PrintAllTrees(TreesWithSomeHeight(fruitTree, 6.9));
             Console.WriteLine();
-
+            
+            FruitTree a = new FruitTree("Apple", 3, 4.5, 0.0);
+            FruitTree b = new FruitTree("Apple", 5, 4.5, 0.0);
+            FruitTree c = new FruitTree("Orange", 2, 4.0, 0.0);
+            FruitTree d = new FruitTree("Coconut", 3, 4.0, 0.0);
+            FruitTree[] fruitTreeArray = { a, b, c, d };
+            
             Gardener firstGardener = new Gardener("Alex");
             SubscribeToTree(firstGardener, fruitTreeArray);
             fruitTreeArray[0].AddYears(1);
             fruitTreeArray[2].AddYears(4);
+            
+            IEnumerator<FruitTree> enumerator = fruitTree.GetEnumerator();
 
+            Console.WriteLine(enumerator.MoveNext());
+            FruitTree firstTree = enumerator.Current;
+            Console.WriteLine($"First tree: {firstTree.Name}");
+            Console.WriteLine(enumerator.MoveNext());
+            FruitTree secondTree = enumerator.Current;
+            Console.WriteLine($"Second tree: {secondTree.Name}");
+            Console.WriteLine(enumerator.MoveNext());
+            FruitTree thirdTree = enumerator.Current;
+            Console.WriteLine($"Third tree: {thirdTree.Name}");
+            
+            PrintAllTreesEnumerable(fruitTreeArray);
             
             Console.ReadLine();
         }
@@ -123,7 +134,15 @@ namespace FruitTree_Project
                 Console.WriteLine(tree);
             }
         }
-
+        
+        static void PrintAllTreesEnumerable(IEnumerable list)
+        {
+            foreach (FruitTree tree in list)
+            {
+                Console.WriteLine(tree);
+            }
+        }
+        
         static FruitTree TheHighestTree(List<FruitTree> list)
         {
             FruitTree max = new FruitTree();

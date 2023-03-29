@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace FruitTree_Project
 {
-    public class FruitTree : IComparable, IFormattable
+    public class FruitTree : IComparable, IFormattable, IEnumerable
     {
         private const uint MaxAge = 30;
         private const uint ProsperityAge = 4;
@@ -114,6 +114,61 @@ namespace FruitTree_Project
         public override int GetHashCode()
         {
             return ToString().GetHashCode();
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return new FruitTreeEnumerator(this);
+        }
+        
+        private class FruitTreeEnumerator : IEnumerator
+        {
+            private FruitTree tree_;
+            private int position_;
+
+            public FruitTreeEnumerator(FruitTree tree)
+            {
+                tree_ = tree;
+                position_ = -1;
+            }
+            
+            public object Current
+            {
+                get
+                {
+                    if (position_ == -1 || position_ > 2)
+                        throw new InvalidOperationException();
+                    switch (position_)
+                    {
+                        case 0:
+                            return tree_.name_;
+                        case 1:
+                            return tree_.age_;
+                        case 2:
+                            return tree_.height_;
+                        default:
+                            throw new InvalidOperationException();
+                    }
+                }
+            }
+            
+            public bool MoveNext()
+            {
+                if (position_ < 2)
+                {
+                    position_++;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            
+            public void Reset()
+            {
+                position_ = -1;
+            }
         }
 
 
