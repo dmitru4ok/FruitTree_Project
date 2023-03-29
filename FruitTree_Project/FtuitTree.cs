@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace FruitTree_Project
 {
-    public class FruitTree : IComparable, IFormattable
+    public class FruitTree : IComparable, IFormattable, IEnumerable
     {
         private const uint MaxAge = 30;
         private const uint ProsperityAge = 4;
@@ -15,6 +15,7 @@ namespace FruitTree_Project
         protected double yield_;
 
         public event EventHandler YieldReached;
+        public event EventHandler NewProsperityTree;
 
         public double Height { get { return height_; } }
         public virtual double Yield { get { return yield_; }  set { yield_ = value; } }
@@ -29,6 +30,12 @@ namespace FruitTree_Project
             {
                 age_ = value;
             }
+        }
+
+        public string Name
+        {
+            get { return name_; }
+            set { name_ = value; }
         }
         public bool IsFruitful { get { return age_ >= ProsperityAge; } }
 
@@ -111,6 +118,61 @@ namespace FruitTree_Project
             return ToString().GetHashCode();
         }
 
+        public IEnumerator GetEnumerator()
+        {
+            return new FruitTreeEnumerator(this);
+        }
+        
+        private class FruitTreeEnumerator : IEnumerator
+        {
+            private FruitTree tree_;
+            private int position_;
+
+            public FruitTreeEnumerator(FruitTree tree)
+            {
+                tree_ = tree;
+                position_ = -1;
+            }
+            
+            public object Current
+            {
+                get
+                {
+                    if (position_ == -1 || position_ > 2)
+                        throw new InvalidOperationException();
+                    switch (position_)
+                    {
+                        case 0:
+                            return tree_.name_;
+                        case 1:
+                            return tree_.age_;
+                        case 2:
+                            return tree_.height_;
+                        default:
+                            throw new InvalidOperationException();
+                    }
+                }
+            }
+            
+            public bool MoveNext()
+            {
+                if (position_ < 2)
+                {
+                    position_++;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            
+            public void Reset()
+            {
+                position_ = -1;
+            }
+        }
+
 
         public static bool operator !=(FruitTree left, object right)
         {
@@ -175,6 +237,11 @@ namespace FruitTree_Project
             {
                 UpdateCharacteristics(age_ + param);
                 age_ += param;
+                Console.WriteLine("You added {0} years to {1}", param, this.Name);
+                if (age_ >= 4)
+                {
+                    OnNewProsperityTree(EventArgs.Empty);
+                }
             }
         }
 
@@ -242,6 +309,10 @@ namespace FruitTree_Project
         protected virtual void TreeYieldReached(object sender, EventArgs e)
         {
             Console.WriteLine("Дерево досягло плодоносного віку!");
+        }
+        protected virtual void OnNewProsperityTree(EventArgs e)
+        {
+            NewProsperityTree?.Invoke(this, e);
         }
     }
 }

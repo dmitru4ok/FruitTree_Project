@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,16 +34,6 @@ namespace FruitTree_Project
             //Console.WriteLine(e);
             //Console.WriteLine(a != b);
 
-            FruitTree a = new FruitTree("Apple", 3, 4.5, 0.0);
-            FruitTree b = new FruitTree("Apple", 5, 4.5, 0.0);
-            FruitTree c = new FruitTree("Orange", 2, 4.0, 0.0);
-            FruitTree d = new FruitTree("Coconut", 3, 4.0, 0.0);
-            FruitTree[] fruitTreeArray = { a, b, c, d };
-            foreach(FruitTree fruitTree1 in fruitTreeArray)
-            {
-                Console.WriteLine(fruitTree1);
-            }
-
             //Console.WriteLine(a.Equals(b));
             AppleTree FirstAppleTree = new AppleTree("red", 4, 7, 6.0);
             AppleTree SecondAppleTree = new AppleTree("green", 4, 4.5, 2.0);
@@ -51,6 +42,7 @@ namespace FruitTree_Project
             Apricot FirstApricotTree = new Apricot(5, 6, 9.0);
             Apricot SecondApricotTree = new Apricot(5, 6.5, 8.5);
             Apricot ThirdApricotTree = new Apricot(5, 0.5, 0.0);
+            Apricot FourthApricotTree = new Apricot(3, 0.5, 6.0);
 
             //Console.WriteLine(A);
             //A.AddYears(1);
@@ -68,7 +60,7 @@ namespace FruitTree_Project
 
             List<FruitTree> fruitTree = new List<FruitTree>()
             {
-                FirstAppleTree, SecondAppleTree, ThirdAppleTree, FirstApricotTree, SecondApricotTree, ThirdApricotTree
+                FirstAppleTree, SecondAppleTree, ThirdAppleTree, FirstApricotTree, SecondApricotTree, ThirdApricotTree, FourthApricotTree
             };
 
             Console.WriteLine("FruitTree list: ");
@@ -105,11 +97,40 @@ namespace FruitTree_Project
 
             Console.WriteLine("Trees with certain height <= 6.9: ");
             PrintAllTrees(TreesWithSomeHeight(fruitTree, 6.9));
+            Console.WriteLine();
+            
+            FruitTree a = new FruitTree("Apple", 3, 4.5, 0.0);
+            FruitTree b = new FruitTree("Apple", 5, 4.5, 0.0);
+            FruitTree c = new FruitTree("Orange", 2, 4.0, 0.0);
+            FruitTree d = new FruitTree("Coconut", 3, 4.0, 0.0);
+            FruitTree[] fruitTreeArray = { a, b, c, d };
+            
+            Gardener firstGardener = new Gardener("Alex");
+            SubscribeToTree(firstGardener, fruitTreeArray);
+            fruitTreeArray[0].AddYears(1);
+            fruitTreeArray[2].AddYears(4);
+            Console.WriteLine();
+            
+            IEnumerator<FruitTree> enumerator = fruitTree.GetEnumerator();
 
-
+            enumerator.MoveNext();
+            FruitTree firstTree = enumerator.Current;
+            Console.WriteLine($"First tree: {firstTree.Name}");
+            enumerator.MoveNext();
+            FruitTree secondTree = enumerator.Current;
+            Console.WriteLine($"Second tree: {secondTree.Name}");
+            enumerator.MoveNext();
+            FruitTree thirdTree = enumerator.Current;
+            Console.WriteLine($"Third tree: {thirdTree.Name}");
+            enumerator.MoveNext();
+            FruitTree fourthTree = enumerator.Current;
+            Console.WriteLine($"Fourth tree: {fourthTree.Name}");
+            Console.WriteLine();
+            
+            PrintAllTreesEnumerable(fruitTreeArray);
+            
             Console.ReadLine();
         }
-
         static void PrintAllTrees(List<FruitTree> list)
         {
             foreach (FruitTree tree in list)
@@ -117,7 +138,15 @@ namespace FruitTree_Project
                 Console.WriteLine(tree);
             }
         }
-
+        
+        static void PrintAllTreesEnumerable(IEnumerable list)
+        {
+            foreach (FruitTree tree in list)
+            {
+                Console.WriteLine(tree);
+            }
+        }
+        
         static FruitTree TheHighestTree(List<FruitTree> list)
         {
             FruitTree max = new FruitTree();
@@ -206,6 +235,13 @@ namespace FruitTree_Project
             //}
 
             //return newList;
+        }
+        static void SubscribeToTree(Gardener gardener, params FruitTree[] trees)
+        {
+            foreach (FruitTree tree in trees)
+            {
+                tree.NewProsperityTree += gardener.NewProsperityTreeGardener;
+            }
         }
     }
 }
