@@ -130,11 +130,24 @@ namespace FruitTree_Project
             PrintAllTreesEnumerable(fruitTreeArray);
             Console.WriteLine();
             
-            FruitTreeCollection treeCollection = new FruitTreeCollection();
-            treeCollection.Add(SecondAppleTree);
-            treeCollection.Add(ThirdAppleTree);
-            treeCollection.Add(FirstApricotTree);
+            FruitTreeCollection treeCollection = new FruitTreeCollection
+            {
+                SecondAppleTree,
+                ThirdAppleTree,
+                FirstApricotTree
+            };
+            treeCollection.Add(FourthApricotTree);
+            Console.WriteLine($"Average height in collection is: {treeCollection.GetAverageHeight()}");
+            Console.WriteLine($"Average yield in collection is: {treeCollection.GetAverageYield()}");
+            Console.WriteLine($"Healthy trees in collection: ");
+            PrintAllTreesEnumerable(treeCollection.GetHealthyTrees());
+            Console.WriteLine("Sorting by height");
+            treeCollection.SortByHeight();
             PrintAllTreesEnumerable(treeCollection);
+            Console.WriteLine();
+            treeCollection.Clear();
+            PrintAllTreesEnumerable(treeCollection);
+            Console.WriteLine();
             
             Console.ReadLine();
         }

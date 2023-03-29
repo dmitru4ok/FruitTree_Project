@@ -6,7 +6,7 @@ namespace FruitTree_Project
 {
     public class FruitTree : IComparable, IFormattable, IEnumerable
     {
-        private const uint MaxAge = 30;
+        public const uint MaxAge = 30;
         private const uint ProsperityAge = 4;
 
         private string name_;
