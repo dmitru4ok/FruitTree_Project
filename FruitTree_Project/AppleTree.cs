@@ -16,6 +16,7 @@ namespace FruitTree_Project
                 {
                     OnYieldReached(EventArgs.Empty);
                 }
+                else if (age_ > MaxAge) OnAgeReached(EventArgs.Empty);
                 return age_;
             }
         }
@@ -33,11 +34,6 @@ namespace FruitTree_Project
         public override int GetHashCode()
         {
             return ToString().GetHashCode();
-        }
-
-        protected override void TreeYieldReached(object sender, EventArgs e)
-        {
-            Console.WriteLine("Дерево Яблуко досягло плодоносного віку!");
         }
     }
 }

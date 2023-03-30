@@ -33,8 +33,8 @@ namespace FruitTree_Project
             //e.ReadFromConsole(e);
             //Console.WriteLine(e);
             //Console.WriteLine(a != b);
-
             //Console.WriteLine(a.Equals(b));
+
             AppleTree FirstAppleTree = new AppleTree("red", 4, 7, 6.0);
             AppleTree SecondAppleTree = new AppleTree("green", 4, 4.5, 2.0);
             AppleTree ThirdAppleTree = new AppleTree("yellow", 3, 1.5, 0.0);
@@ -98,19 +98,19 @@ namespace FruitTree_Project
             Console.WriteLine("Trees with certain height <= 6.9: ");
             PrintAllTrees(TreesWithSomeHeight(fruitTree, 6.9));
             Console.WriteLine();
-            
+
             FruitTree a = new FruitTree("Apple", 3, 4.5, 0.0);
             FruitTree b = new FruitTree("Apple", 5, 4.5, 0.0);
             FruitTree c = new FruitTree("Orange", 2, 4.0, 0.0);
             FruitTree d = new FruitTree("Coconut", 3, 4.0, 0.0);
             FruitTree[] fruitTreeArray = { a, b, c, d };
-            
+
             Gardener firstGardener = new Gardener("Alex");
             SubscribeToTree(firstGardener, fruitTreeArray);
             fruitTreeArray[0].AddYears(1);
             fruitTreeArray[2].AddYears(4);
             Console.WriteLine();
-            
+
             IEnumerator<FruitTree> enumerator = fruitTree.GetEnumerator();
 
             enumerator.MoveNext();
@@ -126,10 +126,10 @@ namespace FruitTree_Project
             FruitTree fourthTree = enumerator.Current;
             Console.WriteLine($"Fourth tree: {fourthTree.Name}");
             Console.WriteLine();
-            
+
             PrintAllTreesEnumerable(fruitTreeArray);
             Console.WriteLine();
-            
+
             FruitTreeCollection treeCollection = new FruitTreeCollection
             {
                 SecondAppleTree,
@@ -148,7 +148,18 @@ namespace FruitTree_Project
             treeCollection.Clear();
             PrintAllTreesEnumerable(treeCollection);
             Console.WriteLine();
-            
+
+            Console.WriteLine("--------------------------TESTING EVENT MAXAGE--------------------");
+            FruitTree e = new FruitTree("Apple", 29, 4.5, 15.0);
+            FruitTree f = new FruitTree("Apple", 31, 4.5, 20.0);
+            FruitTree g = new FruitTree("Orange", 28, 4.0, 10.0);
+            FruitTree k = new FruitTree("Coconut", 6, 4.0, 10.0);
+            List<FruitTree> fruitTree2 = new List<FruitTree>(){ e, f, g, k };
+            PrintAllTrees(fruitTree2);
+            Console.WriteLine("\n");
+            AddFewYearsToList(fruitTree2, 2);
+            PrintAllTrees(fruitTree2);
+
             Console.ReadLine();
         }
         static void PrintAllTrees(List<FruitTree> list)

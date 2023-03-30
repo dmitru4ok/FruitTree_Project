@@ -16,14 +16,16 @@ namespace FruitTree_Project
 
         public event EventHandler YieldReached;
         public event EventHandler NewProsperityTree;
+        public event EventHandler AgeReached;
 
         public double Height { get { return height_; } }
         public virtual double Yield { get { return yield_; }  set { yield_ = value; } }
         public virtual uint Age { 
             get 
             {   
-                if(age_ > ProsperityAge) 
+                if(age_ > ProsperityAge && age_ <= MaxAge) 
                 { OnYieldReached(EventArgs.Empty); }
+                else if(age_ > MaxAge) OnAgeReached(EventArgs.Empty);
                 return age_; 
             } 
             set
@@ -42,8 +44,9 @@ namespace FruitTree_Project
         public FruitTree(string name = "", uint age = 0, double height = 0.0, double yield = 0.0)
         {
             YieldReached += TreeYieldReached;
+            AgeReached += TreeAgeReached;
             name_ = name;
-            age_ = (age > 0 && age <= MaxAge) ? age : 0;
+            age_ = (age > 0) ? age : 0;
             height_ = (height > 0.0 && height <= 25.0) ? height : 0.0;
             if (age_ >= ProsperityAge && (yield > 0))
             {
@@ -233,18 +236,24 @@ namespace FruitTree_Project
 
         public virtual void AddYears(uint param = 1)
         {
-            if (param != 0 && param + age_ < MaxAge)
+            if (param != 0 /*&& param + age_ < MaxAge*/)
             {
-                UpdateCharacteristics(age_ + param);
+                if (age_ <= MaxAge)
+                {
+                    UpdateCharacteristics(age_ + param);
+                }
+                else
+                {
+                    yield_ = 0;
+                }
                 age_ += param;
-                Console.WriteLine("You added {0} years to {1}", param, this.Name);
-                if (age_ >= 4)
+                //Console.WriteLine("You added {0} years to {1}", param, this.Name);
+                if (age_ >= 4 && age_ <= MaxAge)
                 {
                     OnNewProsperityTree(EventArgs.Empty);
                 }
             }
         }
-
 
         public void ReadFromConsole(FruitTree myClass)
         {
@@ -305,10 +314,20 @@ namespace FruitTree_Project
         {
             YieldReached?.Invoke(this, e);
         }
+        protected virtual void OnAgeReached(EventArgs e)
+        {
+            AgeReached?.Invoke(this, e);
+        }
+        protected virtual void TreeAgeReached(object sender, EventArgs e)
+        {
+            FruitTree tree = sender as FruitTree;
+            Console.WriteLine($"Tree {tree.Name} dried!");
+        }
 
         protected virtual void TreeYieldReached(object sender, EventArgs e)
         {
-            Console.WriteLine("Дерево досягло плодоносного віку!");
+            FruitTree tree = sender as FruitTree;
+            Console.WriteLine($"Tree {tree.Name} reached prosperity age!");
         }
         protected virtual void OnNewProsperityTree(EventArgs e)
         {
