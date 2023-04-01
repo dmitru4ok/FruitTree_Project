@@ -62,10 +62,17 @@ namespace FruitTree_Project
             {
                 FirstAppleTree, SecondAppleTree, ThirdAppleTree, FirstApricotTree, SecondApricotTree, ThirdApricotTree, FourthApricotTree
             };
-
+            
+            Console.WriteLine("--------------------------TESTING FUNCTIONS--------------------");
             Console.WriteLine("FruitTree list: ");
             Console.WriteLine();
             PrintAllTrees(fruitTree);
+            Console.WriteLine();
+            FruitTree pearTree = new FruitTree("Pear", 4, 6.0, 5.0);
+            FruitTree peachTree = new FruitTree("Peach", 45, 15.0, 1.0);
+            Console.WriteLine($"Is {pearTree.Name} fruitful ? -> {pearTree.IsFruitful()}");
+            Console.WriteLine($"Is {peachTree.Name} fruitful ? -> {peachTree.IsFruitful()}");
+            Console.WriteLine();
             Console.WriteLine("\nThe highest tree: ");
             Console.WriteLine(TheHighestTree(fruitTree));
 
@@ -98,7 +105,8 @@ namespace FruitTree_Project
             Console.WriteLine("Trees with certain height <= 6.9: ");
             PrintAllTrees(TreesWithSomeHeight(fruitTree, 6.9));
             Console.WriteLine();
-
+            
+            Console.WriteLine("--------------------------TESTING EVENT NEWPROSPERITYTREE--------------------");
             FruitTree a = new FruitTree("Apple", 3, 4.5, 0.0);
             FruitTree b = new FruitTree("Apple", 5, 4.5, 0.0);
             FruitTree c = new FruitTree("Orange", 2, 4.0, 0.0);
@@ -110,7 +118,8 @@ namespace FruitTree_Project
             fruitTreeArray[0].AddYears(1);
             fruitTreeArray[2].AddYears(4);
             Console.WriteLine();
-
+            
+            Console.WriteLine("--------------------------TESTING GETENUMERATOR--------------------");
             IEnumerator<FruitTree> enumerator = fruitTree.GetEnumerator();
 
             enumerator.MoveNext();
@@ -129,7 +138,8 @@ namespace FruitTree_Project
 
             PrintAllTreesEnumerable(fruitTreeArray);
             Console.WriteLine();
-
+            
+            Console.WriteLine("--------------------------TESTING FRUITTREECOLLECTION--------------------");
             FruitTreeCollection treeCollection = new FruitTreeCollection
             {
                 SecondAppleTree,
@@ -204,7 +214,7 @@ namespace FruitTree_Project
 
         static string AreAllTreesFruitful(List<FruitTree> list)
         {
-            if (list.TrueForAll(tree => tree.IsFruitful)) // модерний варіант
+            if (list.TrueForAll(tree => tree.IsFruitful())) // модерний варіант
             {
                 return "All trees are fruitful";
             }

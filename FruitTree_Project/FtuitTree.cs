@@ -7,7 +7,7 @@ namespace FruitTree_Project
     public class FruitTree : IComparable, IFormattable, IEnumerable
     {
         public const uint MaxAge = 30;
-        private const uint ProsperityAge = 4;
+        public const uint ProsperityAge = 4;
 
         private string name_;
         protected uint age_;
@@ -23,7 +23,7 @@ namespace FruitTree_Project
         public virtual uint Age { 
             get 
             {   
-                if(age_ > ProsperityAge && age_ <= MaxAge) 
+                if(age_ >= ProsperityAge && age_ <= MaxAge) 
                 { OnYieldReached(EventArgs.Empty); }
                 else if(age_ > MaxAge) OnAgeReached(EventArgs.Empty);
                 return age_; 
@@ -39,7 +39,6 @@ namespace FruitTree_Project
             get { return name_; }
             set { name_ = value; }
         }
-        public bool IsFruitful { get { return age_ >= ProsperityAge; } }
 
         public FruitTree(string name = "", uint age = 0, double height = 0.0, double yield = 0.0)
         {
@@ -332,6 +331,14 @@ namespace FruitTree_Project
         protected virtual void OnNewProsperityTree(EventArgs e)
         {
             NewProsperityTree?.Invoke(this, e);
+        }
+    }
+    
+    public static class FruitTreeExtensions
+    {
+        public static bool IsFruitful(this FruitTree tree)
+        {
+            return tree.Age >= FruitTree.ProsperityAge && tree.Age <= FruitTree.MaxAge; 
         }
     }
 }
