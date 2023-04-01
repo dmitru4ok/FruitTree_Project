@@ -169,7 +169,14 @@ namespace FruitTree_Project
             Console.WriteLine("\n");
             AddFewYearsToList(fruitTree2, 2);
             PrintAllTrees(fruitTree2);
-
+            Console.WriteLine();
+            FruitTree cloneE = (FruitTree)e.Clone();
+            e.AddYears(1);
+            Console.WriteLine(e);
+            cloneE.AddYears(1);
+            Console.WriteLine(cloneE);
+            Console.WriteLine();
+            
             Console.ReadLine();
         }
         static void PrintAllTrees(List<FruitTree> list)

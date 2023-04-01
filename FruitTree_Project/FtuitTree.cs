@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace FruitTree_Project
 {
-    public class FruitTree : IComparable, IFormattable, IEnumerable
+    public class FruitTree : IComparable, IFormattable, IEnumerable, ICloneable
     {
         public const uint MaxAge = 30;
         public const uint ProsperityAge = 4;
@@ -174,8 +174,23 @@ namespace FruitTree_Project
                 position_ = -1;
             }
         }
+        
+        public object Clone()
+        {
+            FruitTree clone = new FruitTree();
+            
+            clone.name_ = name_;
+            clone.age_ = age_;
+            clone.height_ = height_;
+            clone.yield_ = yield_;
+            
+            clone.YieldReached = (EventHandler)YieldReached?.Clone();
+            clone.NewProsperityTree = (EventHandler)NewProsperityTree?.Clone();
+            clone.AgeReached = (EventHandler)AgeReached?.Clone();
 
-
+            return clone;
+        }
+        
         public static bool operator !=(FruitTree left, object right)
         {
             if (left is null && right is null)
